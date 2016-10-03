@@ -6,53 +6,52 @@ from xml.sax.handler import ContentHandler
 
 class SmallSMILHandler(ContentHandler):
 
-	def __init__ (self):
-		self.width = ""
-		self.heigth = ""
-		self.backgroundcolor = ""
-		self.id = ""
-		self.top = ""
-		self.left = ""
-		self.right = ""
-		self.src = ""
-		self.region = ""
-		self.begin = ""
-		self.dur = ""
+    def __init__ (self):
 
-	def startElement(self,name,attrs):
-		if name == 'root-layout':
-            self.width = attrs.get('width',"") 
-            self.heigth = attrs.get('heigth',"") 
-            self.backgroundcolor = attrs.get('background-color',"") 
-        elif name == 'region':
-            self.id = attrs.get('id',"") 
-            self.top = attrs.get('top',"") 
-            self.left = attrs.get('left',"") 
-        elif name == 'img':
-        	self.src = attrs.get('src',"") 
-            self.region = attrs.get('region',"") 
-            self.begin = attrs.get('begin',"") 
-            self.dur = attrs.get('dur',"") 
-        elif name == 'audio':
-        	self.src = attrs.get('src',"") 
-            self.begin = attrs.get('begin',"")
-            self.dur = attrs.get('dur',"") 
-        elif name == 'textstream':
-        	self.src = attrs.get('src',"")
-     def endElement(self, name): #el parser lo llama cada vez que encuentre una etiqueta de cierre
-        """
-        Método que se llama al cerrar una etiqueta
-        """
-        if name == 'root-layout':
-            print(self.width + "/" + self.heigth + "/" + self.backgroundcolor)
-      
+        self.width = ""
+        self.heigth = ""
+        self.backgroundcolor = ""
+        self.id = ""
+        self.top = ""
+        self.left = ""
+        self.right = ""
+        self.isrc = ""
+        self.asrc = ""
+        self.tsrc = ""
+        self.region = ""
+        self.begin = ""
+        self.dur = ""
+        self.misdatos = []
+       
+
+    def startElement(self,etiqueta,attrs):
+
+        if etiqueta == 'root-layout':
+            rootlayout = {'width' : attrs.get('width',""),'height' : attrs.get('height',""),'background-color': attrs.get('background-color')}
+            self.misdatos.append(rootlayout)
+        elif etiqueta == 'region':
+            region = {'id' : attrs.get('id', ""), 'top' : attrs.get('top', ""), 'bottom' : attrs.get('bottom',""), 'left' : attrs.get('left', ""),'right' : attrs.get('right',"")}
+            self.misdatos.append(region)
+        elif etiqueta == 'img':
+            img = {'isrc' : attrs.get('src', ""), 'iregion' : attrs.get('region', ""),'ibegin' : attrs.get('begin', ""), 'idur' : attrs.get('dur', "")} 
+            self.misdatos.append(img)
+        elif etiqueta == 'audio':
+            audio = {'asrc' : attrs.get('src', ""), 'abegin' : attrs.get('begin', ""), 'adur' : attrs.get('dur', "")} 
+            self.misdatos.append(audio)
+        elif etiqueta == 'textstream':
+            self.textstream = {'tsrc' : attrs.get('src',"")}
 
 
-	def get_tags (self):
-		return self.misdatos
+    def get_tags (self):
+        return self.misdatos
 
 if __name__ == "__main__":
 
-	parser = make_parser()
-	cHandler = SmallSMILHandler()
-	parser.setContentHandler(cHandler)
+    parser = make_parser()
+    cHandler = SmallSMILHandler()
+    parser.setContentHandler(cHandler)
+    parser.parse(open('karaoke.smil'))
+    misdatos = cHandler.get_tags()
+    for i in misdatos:
+        print(i)
+        print("\n")
