@@ -39,7 +39,9 @@ class SmallSMILHandler(ContentHandler):
             audio = {'asrc' : attrs.get('src', ""), 'abegin' : attrs.get('begin', ""), 'adur' : attrs.get('dur', "")} 
             self.misdatos.append(audio)
         elif etiqueta == 'textstream':
-            self.textstream = {'tsrc' : attrs.get('src',"")}
+            textstream = {'tsrc' : attrs.get('src',"")}
+            self.misdatos.append(textstream)
+
 
 
     def get_tags (self):
