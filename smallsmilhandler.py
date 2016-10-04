@@ -41,8 +41,6 @@ class SmallSMILHandler(ContentHandler):
             textstream = ('textstream',{'src' : attrs.get('src',"")})
             self.misdatos.append(textstream)
 
-
-
     def get_tags (self):
         return self.misdatos
 
