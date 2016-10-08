@@ -49,7 +49,10 @@ if __name__ == "__main__":
     parser = make_parser()
     cHandler = SmallSMILHandler()
     parser.setContentHandler(cHandler)
-    fichero = sys.argv[1]
+    try:
+        fichero = sys.argv[1]
+    except IndexError:
+        sys.exit("Usage: python3 smallsmilhandler.py file.smil")
     parser.parse(open(fichero))
     misdatos = cHandler.get_tags()
     for i in misdatos:
