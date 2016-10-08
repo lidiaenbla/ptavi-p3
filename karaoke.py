@@ -11,9 +11,16 @@ if __name__ == "__main__":
     parser = make_parser()
     cHandler = SmallSMILHandler()
     parser.setContentHandler(cHandler)
-    fichero = sys.argv[1]
+    try:
+        fichero = sys.argv[1]
+    except IndexError:
+        sys.exit("Usage: python3 karaoke.py file.smil")
     parser.parse(open(fichero))
     misdatos = cHandler.get_tags()
-    for etiqueta in misdatos:
-    	elemento = etiqueta.items() #es un diccionario
-    	print(elemento)
+    salida = ""
+    for datos in misdatos:
+    	for etiqueta in datos:
+    		for atributo, valor in datos[etiqueta].items():
+    			salida = salida + etiqueta + " \ " + atributo + '="' + valor + '"\ '
+    	print(salida)
+    	salida = ""
