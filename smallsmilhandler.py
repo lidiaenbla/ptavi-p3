@@ -26,16 +26,27 @@ class SmallSMILHandler(ContentHandler):
     def startElement(self, etiqueta, attrs):
 
         if etiqueta == 'root-layout':
-            rootlayout = {'rootlayout': ({'width': attrs.get('width', ""), 'height': attrs.get('height', ""), 'background-color': attrs.get('background-color')})}
+            rootlayout = {'rootlayout': ({'width': attrs.get('width', ""),
+                                          'height': attrs.get('height', ""),
+                                          'background-color': attrs.get('background-color')})}
             self.misdatos.append(rootlayout)
         elif etiqueta == 'region':
-            region = {'region': ({'id': attrs.get('id', ""), 'top': attrs.get('top', ""), 'bottom': attrs.get('bottom', ""), 'left': attrs.get('left', ""), 'right': attrs.get('right', "")})}
+            region = {'region': ({'id': attrs.get('id', ""),
+                                  'top': attrs.get('top', ""),
+                                  'bottom': attrs.get('bottom', ""),
+                                  'left': attrs.get('left', ""),
+                                  'right': attrs.get('right', "")})}
             self.misdatos.append(region)
         elif etiqueta == 'img':
-            img = {'img': ({'src': attrs.get('src', ""), 'region': attrs.get('region', ""), 'begin': attrs.get('begin', ""), 'dur': attrs.get('dur', "")})}
+            img = {'img': ({'src': attrs.get('src', ""),
+                            'region': attrs.get('region', ""),
+                            'begin': attrs.get('begin', ""),
+                            'dur': attrs.get('dur', "")})}
             self.misdatos.append(img)
         elif etiqueta == 'audio':
-            audio = {'audio': ({'src': attrs.get('src', ""), 'abegin': attrs.get('begin', ""), 'dur': attrs.get('dur', "")})}
+            audio = {'audio': ({'src': attrs.get('src', ""),
+                                'abegin': attrs.get('begin', ""),
+                                'dur': attrs.get('dur', "")})}
             self.misdatos.append(audio)
         elif etiqueta == 'textstream':
             textstream = {'textstream': ({'src': attrs.get('src', "")})}
