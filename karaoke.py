@@ -46,8 +46,8 @@ class KaraokeLocal():
             print(etiqueta + exit)
             exit = ""
 
-    def do_joson(self, datos):
-        json.dump(datos, open('karaoke.json', 'w'))
+    def do_joson(self, fichero):
+        json.dump(self.misdatos, open('karaoke.json', 'w'))
 
 if __name__ == "__main__":
 
@@ -62,5 +62,5 @@ if __name__ == "__main__":
     datos = objKaraokeLocal.Inicializador(fichero)
     objKaraokeLocal.toStr(datos)
     objKaraokeLocal.do_local(datos)
-    objKaraokeLocal.do_joson(datos)
+    objKaraokeLocal.do_joson(fichero)
     objKaraokeLocal.toStr(datos)
