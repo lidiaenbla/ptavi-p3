@@ -25,9 +25,9 @@ if __name__ == "__main__":
         for etiqueta in datos:
             for atributo, valor in datos[etiqueta].items():
                 if (atributo == 'src') and (valor[0:7] == 'http://'):
-                    valorNuevo = valor.split("/")[-1]
-                    urllib.request.urlretrieve(valor, valorNuevo)
-                    salida = salida + '\t' + atributo + ' = "' + valorNuevo + '"\t'
+                    valorN = valor.split("/")[-1]
+                    urllib.request.urlretrieve(valor, valorN)
+                    salida = salida + '\t' + atributo + '="' + valorN + '"\t'
                 else:
                     salida = salida + '\t' + atributo + ' = "' + valor + '"\t'
         print(etiqueta + salida)
