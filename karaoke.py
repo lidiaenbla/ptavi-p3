@@ -27,4 +27,3 @@ if __name__ == "__main__":
         print(etiqueta + salida)
         salida = ""
     json.dump(misdatos, open('karaoke.json', 'w'))
-
