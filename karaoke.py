@@ -8,6 +8,7 @@ import json
 import urllib.request
 from smallsmilhandler import SmallSMILHandler
 
+
 class KaraokeLocal():
     def Inicializador(self, fichero):
         self.cHandler = SmallSMILHandler()
@@ -22,29 +23,30 @@ class KaraokeLocal():
         return misdatos
 
     def toStr(self, datos):
-        salida = ""
+        exit = ""
 
         for elementos in datos:
             for etiqueta in elementos:
                 for atributo, valor in elementos[etiqueta].items():
-                        salida = salida + '\t' + atributo + ' = "' + valor + '"\t'
-            print(etiqueta + salida)
-            salida = ""
+                        exit = exit + '\t' + atributo + ' = "' + valor + '"\t'
+            print(etiqueta + exit)
+            exit = ""
+
     def do_local(self, datos):
-        salida = ""
+        exit = ""
         for elementos in datos:
             for etiqueta in elementos:
                 for atributo, valor in elementos[etiqueta].items():
                     if (atributo == 'src') and (valor[0:7] == 'http://'):
                         valorN = valor.split("/")[-1]
                         urllib.request.urlretrieve(valor, valorN)
-                        salida = salida + '\t' + atributo + '="' + valorN + '"\t'
+                        exit = exit + '\t' + atributo + '="' + valorN + '"\t'
                     else:
-                        salida = salida + '\t' + atributo + ' = "' + valor + '"\t'
-            print(etiqueta + salida)
-            salida = ""
+                        exit = exit + '\t' + atributo + ' = "' + valor + '"\t'
+            print(etiqueta + exit)
+            exit = ""
 
-    def to_json(self, datos):
+    def do_joson(self, datos):
         json.dump(datos, open('karaoke.json', 'w'))
 
 if __name__ == "__main__":
@@ -60,4 +62,5 @@ if __name__ == "__main__":
     datos = objKaraokeLocal.Inicializador(fichero)
     objKaraokeLocal.toStr(datos)
     objKaraokeLocal.do_local(datos)
-    objKaraokeLocal.to_json(datos)
+    objKaraokeLocal.do_joson(datos)
+    objKaraokeLocal.toStr(datos)
